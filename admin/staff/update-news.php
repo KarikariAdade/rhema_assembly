@@ -1,9 +1,9 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/announcement-counter.php';
-$id = $_SESSION['id'];
-$errorMsg ='';
+ <?php
+ include 'includes/connect.php';
+ include 'includes/announcement-counter.php';
+ session_start();
+ $id = $_SESSION['id'];
+ $errorMsg ='';
    function slug($text){
   $text = str_replace(' ', '-', $text);
   $text = preg_replace('/[^A-Za-z\-]/', '', $text);
@@ -194,6 +194,7 @@ if (!isset($_GET['news'])) {
        $news_get_author = $row['news_author'];
      }
    }
+// include 'connect.php';
 if (isset($_POST['news_update_btn'])) {
   $errorMsg = false;
   $news_id = mysqli_real_escape_string($conn, $_POST['news_id']);
@@ -206,11 +207,10 @@ if (isset($_POST['news_update_btn'])) {
    $news_slug = slug($news_title);
 
   if (!empty($news_title) && !empty($news_author) && !empty($news_category) && !empty($news_description)) {
-  if(!isset($image)){
-  $del_seg = explode("/", $image);
-    $img = $del_seg[7];
+    $del_seg = explode("/", $image);
+    $img = $del_seg[8];
+    $errorMsg = $img;
     unlink ("../assets/uploads/news/".$img);
-  }
      $file_name = $_FILES['news_image']['name'];
         $file_size = $_FILES['news_image']['size'];
         $file_tmp_name = $_FILES['news_image']['tmp_name'];
@@ -219,6 +219,7 @@ if (isset($_POST['news_update_btn'])) {
         $target_file = $target_dir.basename($file_name);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $errorMsg = $target_file;
         if ($file_size > 5000000) {
           $errorMsg = "Image should not be more than 5mb";
           $uploadOk = 0;
@@ -232,7 +233,7 @@ if (isset($_POST['news_update_btn'])) {
             if (move_uploaded_file($file_tmp_name, $target_file)) {
                         $image_url = $_SERVER['HTTP_REFERER'];
                         $seg = explode("/", $image_url);
-                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
                         $full_image_path = $path."/"."assets/uploads/news/".$file_name;
                         $sql = "UPDATE news SET
                         news_title = '$news_title',
@@ -244,8 +245,7 @@ if (isset($_POST['news_update_btn'])) {
                         ";
                         $query = mysqli_query($conn, $sql);
                         if ($query) {
-                        $errorMsg = "News uploaded successfully";
-                          echo "<script>window.location=news-detail.php?news=".urlencode($news_slug).";</script>";
+                          echo "<script>window.location = 'news-detail.php?news=".urlencode($news_slug)."';</script>";
                         }else{
                           $errorMsg = "News could not be updated".mysqli_error($conn);
                         }
@@ -262,9 +262,9 @@ if (isset($_POST['news_update_btn'])) {
   								<?php if(isset($_POST['news_update_btn'])): ?>
                     <p id="formError" style="margin-top: -40px !important;"><?php echo $errorMsg; ?></p>
                     <?php endif?><br>
-                    <input type="hidden" name="news_id" id="news_id" value="<?php echo $news_get_id; ?>">
-                    <input type="hidden" name="news_slug" value="<?php echo $news_get_slug; ?>">
-                    <input type="hidden" name="image" id="image" value="<?php echo $news_get_image; ?>">
+                    <input type="text" name="news_id" id="news_id" value="<?php echo $news_get_id; ?>">
+                    <input type="text" name="news_slug" value="<?php echo $news_get_slug; ?>">
+                    <input type="text" name="image" id="image" value="<?php echo $news_get_image; ?>">
   									<div class="col-md-6">
   										<label>News Title</label>
   										<div class="input-group credential_form">

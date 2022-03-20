@@ -1,6 +1,6 @@
 <?php
-session_start();
 include 'includes/connect.php';
+session_start();
 ?>
 <?php if (isset($_SESSION['id'])):?>
     <?php  echo "<script>window.location = 'index.php';</script>"; ?>

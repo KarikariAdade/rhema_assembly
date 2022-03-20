@@ -1,12 +1,12 @@
-<?php
-session_start();
-include 'includes/connect.php';
-use PHPMailer\PHPMailer\PHPMailer;
+	 <?php
+  include 'includes/connect.php';
+  session_start();
+  use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-require '../../vendor/autoload.php';
-$id = $_SESSION['id'];
-$request_error ='';
+require '../../../vendor/autoload.php';
+  $id = $_SESSION['id'];
+  $request_error ='';
   ?>
   <?php if (!isset($_SESSION['id'])):?>
     <?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
@@ -48,53 +48,53 @@ $request_error ='';
           $verify_query = mysqli_query($conn, $verify_sql);
           if ($verify_query) {
             // echo 'wow';
-             $mail = new PHPMailer(true);
+//             $mail = new PHPMailer(true);
 
-       try {
-     //Server settings
-     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
-     $mail->Host       = 'free.mboxhosting.com';                    // Set the SMTP server to send through
-     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-   $mail->Username   = 'staff@coprhemassembly.tk';                     // SMTP username
-   $mail->Password   = 'godovermoney0548';                               // SMTP password
-     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-     $mail->Port       = 25;                                    // TCP port to connect to
+//       try {
+//     //Server settings
+//     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+//     $mail->isSMTP();                                            // Send using SMTP
+//     $mail->Host       = 'mail.nakroteck.site';                    // Set the SMTP server to send through
+//     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+//     $mail->Username   = 'support@ghbrain.com';                     // SMTP username
+//     $mail->Password   = 'GodOverMoney0548';                               // SMTP password
+//     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+//     $mail->Port       = 587;                                    // TCP port to connect to
 
-     //Recipients
-     $mail->setFrom('staff@coprhemassembly.tk', 'COP Rhema Assembly');
-     $mail->addAddress($staff_email, $first_name);     // Add a recipient
-     $mail->SMTPOptions = array(
-       'ssl' => array(
-         'verify_peer' => false,
-         'verify_peer_name' => false,
-         'allow_self_signed' => true
-       )
-     );
+//     //Recipients
+//     $mail->setFrom('support@ghbrain.com', 'GH Brain');
+//     $mail->addAddress('juniorlecrae@gmail.com', $first_name);     // Add a recipient
+//     $mail->SMTPOptions = array(
+//       'ssl' => array(
+//         'verify_peer' => false,
+//         'verify_peer_name' => false,
+//         'allow_self_signed' => true
+//       )
+//     );
 
-     // Content
-     $mail->isHTML(true);                                  // Set email format to HTML
-     $mail->Subject = 'Administrator Verification';
-     $mail->AddEmbeddedImage("../assets/img/pentecost.png", "my-attach", "");
-     $mail->Body    = '<div style="width:100%; font-size="17px;">
-     <p align="center"><img alt="PHPMailer" src="cid:my-attach"></p>
-     <h3>Greetings '.$first_name.',</h3>
-     <p>Your request to become an admin of <a href="www.coprhemassembly.tk">Rhema Assembly</a> has been approved. Please click this <a href="www.coprhemassembly.tk/verify-admin.php?token='.$generated_password.'&id='.$hash_staff_id.'">link</a> to complete registration.</p>
-     <p>Church Admin<p>
-   <p>Mr. Emmanuel Kobeah</p>
-    <p>Signed</p>';
-     $mail->AltBody = 'Your request to become an admin of Rhema Assembly has been approved. Please visit www.coprhemassembly.tk/verify-admin.php?token='.$generated_password.'&id='.$hash_staff_id.' to complete registration';
-     //$mail->SMTPDebug  = 1;
-     $mail->send();
-     $request_error = 'Message has been sent';
- } catch (Exception $e) {
-   $request_error = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
- }
+//     // Content
+//     $mail->isHTML(true);                                  // Set email format to HTML
+//     $mail->Subject = 'Administrator Verification';
+//     $mail->AddEmbeddedImage("../assets/img/pentecost.png", "my-attach", "");
+//     $mail->Body    = '<div style="width:100%; font-size="17px;">
+//     <p align="center"><img alt="PHPMailer" src="cid:my-attach"></p>
+//     <h3>Greetings '.$first_name.',</h3>
+//     <p>Your request to become an admin of <a href="www.coprhemassembly.tk">Rhema Assembly</a> has been approved. Please click this <a href="verify-admin.php?token='.$generated_password.'&id='.$hash_staff_id.'">link</a> to complete registration.</p>
+//     <p>Church Admin<p>
+//     <p>Mr. Emmanuel Kobeah</p>
+//     <p>Signed</p>';
+//     $mail->AltBody = 'hwolo';
+//     $mail->SMTPDebug  = 3;
+//     $mail->send();
+//     $request_error = 'Message has been sent';
+// } catch (Exception $e) {
+//   $request_error = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+// }
 
-$request_error = "Verification Email has been sent to ".$first_name;
-           // echo "<script>
-           //window.location = '../../verify-admin.php?token=$generated_password&id=$hash_staff_id';
-            //</script>";
+
+            echo "<script>
+           window.location = '../../verify-admin.php?token=$generated_password&id=$hash_staff_id';
+            </script>";
           }else{
             $request_error = "Staff could not be added. Try again later";
           }

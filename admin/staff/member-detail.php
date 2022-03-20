@@ -1,6 +1,6 @@
 <?php
+include 'includes/connect.php';
 session_start();
-include 'includes/connect';
 $id = $_SESSION['id'];
 $errorMsg ='';
 ?>

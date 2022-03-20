@@ -10,7 +10,8 @@ if (isset($_FILES['file']['name'][0])) {
 			$file_name = $_FILES['file']['name'];
 			$url = $_SERVER['HTTP_REFERER'];
 			$seg = explode("/", $url);
-			$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+print_r($seg);
+			$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
 			echo $path;
 			$full_image_path = $path."/"."assets/uploads/gallery/".$values;
 			echo $full_image_path;

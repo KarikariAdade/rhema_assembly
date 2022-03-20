@@ -1,16 +1,16 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/announcement-counter.php';
-function slug($text){
-$text = str_replace(' ', '-', $text);
-$text = preg_replace('/[^A-Za-z\-]/', '', $text);
-$text = preg_replace('/-+/', '-', $text);
-$text = strtolower($text);
-return $text;
+ <?php
+ include 'includes/connect.php';
+ include 'includes/announcement-counter.php';
+ function slug($text){
+  $text = str_replace(' ', '-', $text);
+  $text = preg_replace('/[^A-Za-z\-]/', '', $text);
+  $text = preg_replace('/-+/', '-', $text);
+  $text = strtolower($text);
+  return $text;
 }
-$id = $_SESSION['id'];
-?>
+ session_start();
+ $id = $_SESSION['id'];
+ ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
  	<?php else:?>
@@ -207,12 +207,13 @@ if (isset($_POST['announcement_update_btn'])) {
   $announcement_title = mysqli_real_escape_string($conn, $_POST['announcement_title']);
   $publisher_name = mysqli_real_escape_string($conn, $_POST['publisher_name']);
   $announcement_category = mysqli_real_escape_string($conn, $_POST['announcement_category']);
+  // $announcement_image = $_POST['announcement_image'];
   $announcement_description = mysqli_real_escape_string($conn, $_POST['announcement_description']);
   $announcement_slug = slug($announcement_title);
 if (!empty($announcement_title) && !empty($publisher_name) && !empty($announcement_category) && !empty($announcement_description)) {
   if (isset($del_image)) {
      $del_seg = explode("/", $del_image);
-      $img = $del_seg[7];
+      $img = $del_seg['8'];
       unlink("../assets/uploads/announcement/".$img);
   }
       $file_name = $_FILES['announcement_image']['name'];
@@ -223,6 +224,7 @@ if (!empty($announcement_title) && !empty($publisher_name) && !empty($announceme
         $target_file = $target_dir.basename($file_name);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $errorMsg = $target_file;
         if ($file_size > 5000000) {
           $errorMsg = "Image should not be more than 5mb";
           $uploadOk = 0;
@@ -236,7 +238,7 @@ if (!empty($announcement_title) && !empty($publisher_name) && !empty($announceme
           if (move_uploaded_file($file_tmp_name, $target_file)) {
                         $image_url = $_SERVER['HTTP_REFERER'];
                         $seg = explode("/", $image_url);
-                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
                         $full_image_path = $path."/"."assets/uploads/announcement/".$file_name;
 
                         $sql = "UPDATE announcement SET
@@ -249,7 +251,8 @@ if (!empty($announcement_title) && !empty($publisher_name) && !empty($announceme
                         image = '$full_image_path' WHERE id = '$announcement_id'";
                         $query = mysqli_query($conn, $sql);
                         if ($query) {
-                           echo "<script>window.location = 'view-announcements.php';</script>";
+                          echo "Announcement made";
+                          // echo "<script>window.location = 'view-announcements.php';</script>";
                         }else{
                           $errorMsg = "Announcement could not be successfully updated".mysqli_error($conn);
                         }

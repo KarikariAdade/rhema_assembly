@@ -7,7 +7,8 @@ if (isset($_POST['id'])) {
 	$root = $_SERVER['DOCUMENT_ROOT'];
 	if (!empty($row['featured_image'])) {
 		$db_path = explode('/', $row['featured_image']);
-		$unlink = unlink('../../assets/uploads/featured/'.$db_path[5]);
+		$new_path = $root.'/'.$db_path[1].'/'.$db_path[2].'/'.$db_path[3].'/'.$db_path[4].'/'.$db_path[5].'/'.$db_path[6];
+		$unlink = unlink($new_path);
 		$del_item = $conn->query("DELETE FROM featured WHERE id = '$id'") or die(mysqli_error($conn));
 		if ($unlink && $del_item) {
 			echo "Featured item deleted successfully";

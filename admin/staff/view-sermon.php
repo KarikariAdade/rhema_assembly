@@ -24,6 +24,11 @@ include 'includes/sermon_counter.php';
         $service_type = $row['service_type'];
         $sermon_slug = $row['sermon_slug'];
         $sermon_file = $row['sermon_file'];
+        $sermon_audio = explode('.', $sermon_file);
+        $sermon_audio_array = array('mp3','aac','m4a');
+        if (in_array($sermon_audio[1], $sermon_audio_array)) {
+          $audio_file = $row['sermon_file'];
+        }
  }
 }
 }else{
@@ -46,6 +51,7 @@ include 'includes/sermon_counter.php';
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/css/mediaelementplayer.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
@@ -98,7 +104,15 @@ include 'includes/sermon_counter.php';
 			</div>
 			<div class="current_series_video">
 				<?php echo $sermon_notes; ?>
-        <p><button class="btn btn-primary btn-sm"><a style="color: #fff;" href="download.php?id=<?php echo urlencode($sermon_id); ?>">Download Sermon File</a></button></p>
+        <p style="margin-top: 5%;"><button class="btn btn-primary btn-sm"><a style="color: #fff;" href="download.php?id=<?php echo urlencode($sermon_id); ?>">Download Sermon File</a></button>
+          <?php if(isset($audio_file)):?>
+          <br><br><strong><span>Listen to audio below</span></strong>
+           <div class="media-wrapper pull-right">
+                <audio id="player2" controls style="max-width:100%;" autoplay src="<?= $audio_file; ?>" preload="auto">
+                </audio>
+            </div>
+          <?php endif;?>
+        </p>
 			</div>
     			</div>
     			<div class="col-md-3">
@@ -197,6 +211,10 @@ include 'includes/sermon_counter.php';
 <script src="../assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
+<script type="text/javascript" src="../assets/js/mediaelement-and-player.js"></script>
+<script>
+  $('#player2').mediaelementplayer();
+</script>
 </body>
 </html>
 

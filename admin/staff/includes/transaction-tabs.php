@@ -374,4 +374,6 @@ $fetch_offering = $conn->query("SELECT * FROM finance WHERE type = 'Offering' AN
 				?>
 			</div>
 		</div>
-		
+		<div class="tab-pane" id="statistics">
+			<h1>Statistics</h1>
+		</div>

@@ -82,6 +82,7 @@ $id = $_SESSION['id'];
 						<li class="active"><a href="#add_weekly_giving" data-toggle="tab" aria-expanded="false">Add Weekly Givings (Staff)</a></li>
 						<li class=""><a href="#weekly_giving_staff" data-toggle="tab" aria-expanded="false">View Weekly Givings (Staff)</a></li>
 						<li class=""><a href="#weekly_giving_member" data-toggle="tab" aria-expanded="false">View Weekly Givings (Members)</a></li>
+						<li class=""><a href="#weekly_giving_general" data-toggle="tab" aria-expanded="false">View Weekly Givings (General)</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="add_weekly_giving">
@@ -223,6 +224,9 @@ $id = $_SESSION['id'];
 								</div>
 							</div>
 						</div>
+						<div class="tab-pane" id="weekly_giving_general">
+							<h1>view weekly transaction general</h1>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -251,10 +255,7 @@ $id = $_SESSION['id'];
 		$('#print').click(function (){
 			window.print();
 		});
-		setInterval(function(){
-			$('.weekly-giving-stats').load('includes/weekly-giving-stats.php');
-		},1000);
-		
+		$('.weekly-giving-stats').load('includes/weekly-giving-stats.php');
 			var modal = $('#myModal');
 			var btn = $("#myBtn");
 			var span = $(".close")[0];

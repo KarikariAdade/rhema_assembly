@@ -1,15 +1,15 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$id = $_SESSION['id'];
-function slug($text){
-$text = str_replace(' ', '-', $text);
-$text = preg_replace('/[^A-Za-z\-]/', '', $text);
-$text = preg_replace('/-+/', '-', $text);
-$text = strtolower($text);
-return $text;
+ <?php
+ include 'includes/connect.php';
+ session_start();
+ $id = $_SESSION['id'];
+  function slug($text){
+  $text = str_replace(' ', '-', $text);
+  $text = preg_replace('/[^A-Za-z\-]/', '', $text);
+  $text = preg_replace('/-+/', '-', $text);
+  $text = strtolower($text);
+  return $text;
 }
-?>
+ ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
  	<?php else:?>
@@ -69,7 +69,7 @@ return $text;
           if (move_uploaded_file($file_tmp_name, $target_file)) {
             $image_url = $_SERVER['HTTP_REFERER'];
             $seg = explode("/", $image_url);
-            $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+            $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
             $full_image_path = $path."/"."assets/uploads/event/".$file_name;
             $sql = "UPDATE events SET
             activity = '$activity',

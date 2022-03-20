@@ -1,8 +1,8 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$id = $_SESSION['id'];
-?>
+       <?php
+       include 'includes/connect.php';
+       session_start();
+       $id = $_SESSION['id'];
+       ?>
        <?php if (!isset($_SESSION['id'])):?>
         <?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
         <?php else:?>
@@ -91,19 +91,6 @@ $id = $_SESSION['id'];
                        <th>Action</th>
                      </tr>
                    </thead>
-                  <!--  <tfoot>
-                    <tr>
-                     <th>First Name</th>
-                     <th>Last Name</th>
-                     <th>Gender</th>
-                     <th>Email</th>
-                     <th>Position</th>
-                     <th>Occupation</th>
-                     <th>Address</th>
-                     <th>Marital Status</th>
-                     <th>Phone</th>
-                   </tr>
-                 </tfoot> -->
                  <tbody>
                   <?php
                   $sql = "SELECT * FROM members ORDER BY id DESC";
@@ -140,7 +127,7 @@ $id = $_SESSION['id'];
                      <td><?php echo $home_cell_group ?></td>
                      <td><?php echo $bible_study_group; ?></td>
                      <td style="display: inline-flex;">
-                       <a style="margin-right: 5px;" href="update-member.php?member=<?php echo urlencode($member_id);?>&slug=<?php echo urlencode($last_name);?>&user=<?php echo urlencode($first_name);?>"><span class="fa fa-edit"></span></a>
+                       <!-- <a style="margin-right: 5px;" href="update-member.php?member=<?php echo urlencode($member_id);?>&slug=<?php echo urlencode($last_name);?>&user=<?php echo urlencode($first_name);?>"><span class="fa fa-edit"></span></a> -->
                        <form method="POST" action="includes/delete-member.php">
                         <input type="hidden" name="delete_id" value="<?php echo $member_id; ?>">
                        <button class="btn btn-xs" type="submit" name="delete-member-btn" onclick="return confirm('Are you sure you want to delete this member? Deleted data cannot be retrieved')"><span class="fa fa-trash"></span></button>

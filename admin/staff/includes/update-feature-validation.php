@@ -12,7 +12,7 @@ if (isset($_POST['data'])) {
 			$target_file = $target_dir.basename($file_name);
 			$target = $_SERVER['HTTP_REFERER'];
 			$target = explode('/', $target);
-			$target_path = $target[2].'/'.$target[3].'/assets/uploads/featured/'.$file_name;
+			$target_path = $target[2].'/'.$target[3].'/'.$target[4].'/assets/uploads/featured/'.$file_name;
 			$allowed_ext = array('jpg', 'jpeg', 'png');
 			if (!in_array($file_name_explode[1], $allowed_ext)) {
 				echo "Upload only image files";

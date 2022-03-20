@@ -57,21 +57,14 @@ if (mysqli_num_rows($query) > 0) {
     }
   });
  }
-
-
- // THIS CODE CHECKS THE SINGLE NOTIFICATIONS IN THE DATABASE AND MARKS THEM READ WHEN USER CLICKS ON THEM
- function notification_view(category){
+ function notification_view(){
   $.ajax({
-    url: 'includes/single-notifs.php',
-    method: 'POST',
-    data:{category: category},
-    success: function(data){
-      $('#notification_view_label').html(data);
+    url: 'includes/notification_view.php',
+    success:function (){
+      $('#notification_view_label').hide(500);
     }
-  })
+  });
  }
-
- // THIS FUNCTION CHECKS PRIVATE MESSAGE NOTIFICATIONS IN THE DATABASEAND MARKS THEM READ
  function private_view(){
   var email = "<?php echo $email; ?>";
   $.ajax({
@@ -163,7 +156,7 @@ $private_count = mysqli_num_rows($private_query);
             <!--  NOTIFICATION VIEW WITH JAVASCIRPT AND PHP -->
 
 
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="notifiscation_view()">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="notification_view()">
               <i class="fa fa-bell"></i>
               <?php if($notification_count > 0): ?>
               <span class="label label-warning" id="notification_view_label"><?php echo $notification_count; ?></span>
@@ -182,7 +175,7 @@ $private_count = mysqli_num_rows($private_query);
 
                     // FETCH NOTIFICATIONS 
 
-                    $member_notif = "SELECT * FROM notification WHERE category = 'Member Add' AND status = 0 ORDER BY id LIMIT 10";
+                    $member_notif = "SELECT * FROM notification WHERE category = 'Member Add' ORDER BY id LIMIT 10";
                     $member_query = mysqli_query($conn, $member_notif);
                     $member_notif_count = mysqli_num_rows($member_query);
                     if (mysqli_num_rows($member_query) > 0) {
@@ -193,7 +186,7 @@ $private_count = mysqli_num_rows($private_query);
                         $member_notif_date = $row['date'];
                       }
                     }
-                    $volunteer_notif = "SELECT * FROM notification WHERE category = 'Volunteer' AND status = 0 ORDER BY id LIMIT 10";
+                    $volunteer_notif = "SELECT * FROM notification WHERE category = 'Volunteer' ORDER BY id LIMIT 10";
                     $volunteer_query = mysqli_query($conn, $volunteer_notif);
                     $volunteer_notif_count = mysqli_num_rows($volunteer_query);
                     if (mysqli_num_rows($volunteer_query) > 0) {
@@ -204,7 +197,7 @@ $private_count = mysqli_num_rows($private_query);
                         $volunteer_notif_date = $row['date'];
                       }
                     }
-                    $activity_notif = "SELECT * FROM notification WHERE category = 'Monthly Activity' AND status = 0 ORDER BY id LIMIT 10";
+                    $activity_notif = "SELECT * FROM notification WHERE category = 'Monthly Activity' ORDER BY id LIMIT 10";
                     $activity_query = mysqli_query($conn, $activity_notif);
                     $activity_notif_count = mysqli_num_rows($activity_query);
                     if (mysqli_num_rows($activity_query) > 0) {
@@ -215,7 +208,7 @@ $private_count = mysqli_num_rows($private_query);
                         $activity_notif_date = $row['date'];
                       }
                     }
-                    $event_notif = "SELECT * FROM notification WHERE category = 'Event Add' AND status = 0 ORDER BY id LIMIT 10";
+                    $event_notif = "SELECT * FROM notification WHERE category = 'Event Add' ORDER BY id LIMIT 10";
                     $event_query = mysqli_query($conn, $event_notif);
                     $event_notif_count = mysqli_num_rows($event_query);
                     if (mysqli_num_rows($event_query) > 0) {
@@ -239,35 +232,35 @@ $private_count = mysqli_num_rows($private_query);
                     }
                     ?>
                     <?php if($member_notif_count > 0):?>
-                    <a href="view-members.php" onclick="return notification_view('<?= $member_notif_category; ?>')">
+                    <a href="view-members.php" style="background-color: red;">
                       <i class="fa fa-users text-aqua"></i> <?php echo $member_notif_count; ?> new member(s) joined
                     </a>
                   <?php endif;?>
                   </li>
                   <?php if ($volunteer_notif_count > 0):?>
                   <li>
-                    <a href="view-volunteers.php" onclick="return notification_view('<?= $volunteer_notif_category; ?>')">
+                    <a href="view-volunteers.php">
                       <i class="fa fa-users text-navy"></i> <?php echo $volunteer_notif_count; ?> person(s) has agreed to volunteer
                     </a>
                   </li>
                 <?php endif;?>
                 <?php if($activity_notif_count > 0):?>
                   <li>
-                    <a href="monthly-activity.php" onclick="return notification_view('<?= $activity_notif_category; ?>')">
+                    <a href="monthly-activity.php">
                       <i class="fa fa-edit text-green"></i> <?php echo $activity_notif_count; ?> weekly schedule(s) made
                     </a>
                   </li>
                 <?php endif;?>
                 <?php if($event_notif_count > 0):?>
                   <li>
-                    <a href="view-event.php" onclick="return notification_view('<?= $event_notif_category; ?>')">
+                    <a href="view-event.php">
                       <i class="fa fa-calendar-alt text-red"></i> <?php echo $event_notif_count; ?> event(s) has been added
                     </a>
                   </li>
                 <?php endif;?>
                 <?php if($staff_notif_count > 0 && $position == "Presiding Elder"):?>
                   <li>
-                    <a href="staff-request.php" onclick="return notification_view('<?= $staff_notif_category; ?>')">
+                    <a href="staff-request.php">
                       <i class="fa fa-user-tie text-red"></i> <?php echo $staff_notif_count; ?> new staff request(s)
                     </a>
                   </li>
@@ -282,6 +275,7 @@ $private_count = mysqli_num_rows($private_query);
                 <?php endif;?>
             </ul>
           </li>
+          <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="private_view();">
               <i class="fa fa-envelope-open"></i>
@@ -529,6 +523,23 @@ $private_count = mysqli_num_rows($private_query);
             <li><a href="all-group-members.php"><i class="fa fa-arrow-right fa-sm"></i> View Group Members</a></li>
           </ul>
         </li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-bible"></i> <span>Sermons</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <?php if($position == "Presiding Elder" || $position == "Elder"):?>
+            <li><a href="add-sermon.php"><i class="fa fa-arrow-right fa-sm"></i> Add Sermon</a></li>
+          <?php endif;?>
+            <li><a href="view-sermons.php"><i class="fa fa-arrow-right fa-sm"></i> View Sermon</a></li>
+            <?php if($position == "Presiding Elder" || $position == "Elder"):?>
+            <li><a href="view-sermons.php"><i class="fa fa-arrow-right fa-sm"></i> Update Sermon</a></li>
+          <?php endif;?>
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -549,42 +560,7 @@ $private_count = mysqli_num_rows($private_query);
         </li>
           </ul>
         </li>
-       
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-clipboard-list"></i> <span>Activity Schedule</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <?php if($position == "Secretary" || $position == "Presiding Elder" || $position == "Elder"): ?>
-            <li><a href="add-monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> Add Monthly Activity</a></li>
-            <li><a href="edit-monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> Edit Monthly Activity</a></li>
-          <?php endif;?>
-            <li><a href="monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> View Monthly Activities</a></li>
-            <li><a href="all-monthly-activities.php"><i class="fa fa-arrow-right fa-sm"></i> All Monthly Activities</a></li>
-          </ul>
-        </li>
-        <li class="header">CHURCH MEDIA</li>
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bible"></i> <span>Sermons</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <?php if($position == "Presiding Elder" || $position == "Elder"):?>
-            <li><a href="add-sermon.php"><i class="fa fa-arrow-right fa-sm"></i> Add Sermon</a></li>
-          <?php endif;?>
-            <li><a href="view-sermons.php"><i class="fa fa-arrow-right fa-sm"></i> View Sermon</a></li>
-            <?php if($position == "Presiding Elder" || $position == "Elder"):?>
-            <li><a href="view-sermons.php"><i class="fa fa-arrow-right fa-sm"></i> Update Sermon</a></li>
-          <?php endif;?>
-          </ul>
-        </li>
-         <li class="treeview">
           <a href="#">
             <i class="fa fa-newspaper"></i> <span>News</span>
             <span class="pull-right-container">
@@ -632,6 +608,22 @@ $private_count = mysqli_num_rows($private_query);
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-clipboard-list"></i> <span>Activity Schedule</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <?php if($position == "Secretary" || $position == "Presiding Elder" || $position == "Elder"): ?>
+            <li><a href="add-monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> Add Monthly Activity</a></li>
+            <li><a href="edit-monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> Edit Monthly Activity</a></li>
+          <?php endif;?>
+            <li><a href="monthly-activity.php"><i class="fa fa-arrow-right fa-sm"></i> View Monthly Activities</a></li>
+            <li><a href="all-monthly-activities.php"><i class="fa fa-arrow-right fa-sm"></i> All Monthly Activities</a></li>
+          </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
             <i class="fa fa-images"></i> <span>Gallery</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -666,11 +658,6 @@ $private_count = mysqli_num_rows($private_query);
             <li><a href="monthly-giving.php"><i class="fa fa-arrow-right fa-sm"></i> Monthly Tithes/Offering</a></li>
             <li><a href="annual-harvest.php"><i class="fa fa-arrow-right fa-sm"></i> Annual Harvest</a></li>
           </ul>
-        </li>
-        <li>
-          <a href="church-expenses.php">
-            <i class="fa fa-handshake"></i> <span> Church Expenses</span>
-          </a>
         </li>
         <li>
           <a href="financial-report.php">
@@ -723,8 +710,8 @@ $private_count = mysqli_num_rows($private_query);
     <!-- /.sidebar -->
   </aside>
 <script>
-  var date = new Date();
-  if (date.getDay() != 0) {
-    $('#weekly-give').hide();
-  }
+  // var date = new Date();
+  // if (date.getDay() != 0) {
+  //   $('#weekly-give').hide();
+  // }
 </script>

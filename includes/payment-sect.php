@@ -55,6 +55,7 @@ if (isset($_POST['payment_form_submit_btn'])) {
 			echo "SMS could not be sent. Please try again";
 		}
 		curl_close($ch);
+			// echo "Thanks for your generosity. Please donate GHC".$amount_number." and use ".$transaction_id." as reference.";
 		}
 		
 	}else{

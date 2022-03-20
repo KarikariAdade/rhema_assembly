@@ -82,6 +82,7 @@ $id = $_SESSION['id'];
 					<ul class="nav nav-tabs" id="no-print">
 						<li class="active"><a href="#staff_monthly_giving" data-toggle="tab" aria-expanded="false">View Monthly Givings (Staff)</a></li>
 						<li class=""><a href="#member_monthly_giving" data-toggle="tab" aria-expanded="false">View Monthly Givings (Members)</a></li>
+						<li class=""><a href="#general_monthly_giving" data-toggle="tab" aria-expanded="false">View Monthly Givings (General)</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="staff_monthly_giving">
@@ -199,6 +200,9 @@ $id = $_SESSION['id'];
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="tab-pane" id="general_monthly_giving">
+							<h1>General Monthly Giving</h1>
 						</div>
 					</div>
 				</div>

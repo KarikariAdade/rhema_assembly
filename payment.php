@@ -18,10 +18,10 @@
   <?php include 'includes/navbar.php'; ?>
   <!-- NAVIGATION BAR ENDS -->
   <div class="">
-    <form method="POST" class="payment_form" action="includes/payment-sect.php">
+    <form method="POST" class="payment_form">
       <div class="container-fluid give_amount">
         <label>GH&cent</label><br>
-      <input type="number" name="amount_number" placeholder="0.00" min="0" step="0.1" id="amount_number" value="0.00">
+      <input type="number" name="" placeholder="0.00" min="0" step="0.1" id="amount_number" value="0.00">
     </div>
     <div class="container">
       <div class="row">
@@ -81,7 +81,7 @@
           </div>
           <div class="row">
              <div class="col-md-6">
-          <button type="submit" style="width:80%;" class="btn payment_form_submit_btn" name="payment_form_submit_btn">Send Code</button>
+          <button type="submit" style="width:80%;" class="btn payment_form_submit_btn">Send Code</button>
         </div>
           <div class="col-md-6">
            <button type="button" class="btn previous_btn">Go Back</button>

@@ -1,8 +1,8 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$id = $_SESSION['id'];
-?>
+   <?php
+   include 'includes/connect.php';
+   session_start();
+   $id = $_SESSION['id'];
+   ?>
    <?php if (!isset($_SESSION['id'])):?>
     <?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
     <?php else:?>
@@ -82,7 +82,7 @@ $id = $_SESSION['id'];
         </section>
         <div class="row" style="margin-top: 5%;">
           <div class="col-lg-4" id="no-print">
-          <div class="form-group credential form">
+          <div class="form-group credential_form">
           <select name="month" id="month" class="form-control select2 select2-hidden-accessible">
             <option value="">Select Month</option>
             <option value="January">January</option>
@@ -98,7 +98,8 @@ $id = $_SESSION['id'];
             <option value="November">November</option>
             <option value="December">December</option>
           </select>
-</div></div>
+</div>
+</div>
 <div class="col-lg-4" id="no-print">
   <div class="form-group credential form">
           <select name="year" id="year" class="form-control select1 select2-hidden-accessible">

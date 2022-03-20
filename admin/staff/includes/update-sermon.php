@@ -22,23 +22,20 @@ if (isset($_POST['sermon_update_btn'])) {
   $sermon_del_file = $_POST['sermon_file'];
 
 	if (!empty($sermon_title) && !empty($preacher) && !empty($bible_verse) && !empty($sermon_link) && !empty($sermon_category) && !empty($sermon_description)) {
-        if (!empty($file_del_img)){
-        $del_seg = explode("/", $sermon_del_img);
-    $img = $del_seg[8];
-    unlink("assets/uploads/sermon/".$img);
-    }
-		
-                if(!empty($sermon_del_file)){
+
+		$del_seg = explode("/", $sermon_del_img);
+    $img = $del_seg['8'];
+    unlink("../assets/uploads/sermon/".$img);
+
   $del_file_seg = explode("/", $sermon_del_file);
-    $del_file = $del_file_seg[7];
-    unlink("assets/uploads/sermon_file/".$del_file);
-                }
+    $del_file = $del_file_seg[8];
+    unlink("../assets/uploads/sermon_file/".$del_file);
 
     $file_name = $_FILES['sermon_image']['name'];
     $file_size = $_FILES['sermon_image']['size'];
     $file_tmp_name = $_FILES['sermon_image']['tmp_name'];
     $file_type = $_FILES['sermon_image']['type'];
-    $target_dir = "../assets/uploads/sermon/";
+    $target_dir = "../../assets/uploads/sermon/";
     $target_file = $target_dir.basename($file_name);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -47,7 +44,7 @@ if (isset($_POST['sermon_update_btn'])) {
     $sermon_file_size = $_FILES['sermon_file']['size'];
     $sermon_file_tmp_name = $_FILES['sermon_file']['tmp_name'];
     $sermon_file_type = $_FILES['sermon_file']['type'];
-    $sermon_target_dir = "../assets/uploads/sermon_file/";
+    $sermon_target_dir = "../../assets/uploads/sermon_file/";
     $sermon_target_file = $sermon_target_dir.basename($sermon_file_name);
     $sermon_uploadOk = 1;
     $sermon_FileType = strtolower(pathinfo($sermon_target_file,PATHINFO_EXTENSION));
@@ -75,11 +72,11 @@ if (isset($_POST['sermon_update_btn'])) {
 
         $image_url = $_SERVER['HTTP_REFERER'];
         $seg = explode("/", $image_url);
-        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
         $full_image_path = $path."/"."assets/uploads/sermon/".$file_name;
         $sermon_file_url = $_SERVER['HTTP_REFERER'];
         $sermon_seg = explode("/", $sermon_file_url);
-        $sermon_path = $sermon_seg[0]."/".$sermon_seg[1]."/".$sermon_seg[2]."/".$sermon_seg[3];
+        $sermon_path = $sermon_seg[0]."/".$sermon_seg[1]."/".$sermon_seg[2]."/".$sermon_seg[3]."/".$seg[4];
         $errorMsg = $sermon_path;
         $sermon_full_image_path = $sermon_path."/"."assets/uploads/sermon_file/".$sermon_file_name;
         $sql = "UPDATE sermon SET 
@@ -96,7 +93,7 @@ if (isset($_POST['sermon_update_btn'])) {
         $query = mysqli_query($conn, $sql);
         if ($query) {
                     			// echo "<script>window.location = 'view-sermon.php';<script>";
-         header("Location:view-sermons.php");
+         header("Location:../view-sermons.php");
        }else{
          $errorMsg = "Sermon could not be uploaded".mysqli_error($conn);
        }

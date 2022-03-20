@@ -1,8 +1,8 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/news-counter.php';
-$id = $_SESSION['id'];
+ <?php
+ session_start();
+ include 'includes/connect.php';
+ include 'includes/news-counter.php';
+ $id = $_SESSION['id'];
 
  // Fetch News Author
  $fetch_author = $conn->query("SELECT * FROM admin_profile WHERE id = '$id'");
@@ -58,7 +58,7 @@ $id = $_SESSION['id'];
         if (move_uploaded_file($file_tmp_name, $target_file)) {
          $image_url = $_SERVER['HTTP_REFERER'];
          $seg = explode("/", $image_url);
-         $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+         $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
          $full_image_path = $path."/"."assets/uploads/news/".$file_name;
          $sql = "INSERT INTO news (news_author, news_title, news_slug, news_category, news_description, news_date, news_image) VALUES('$news_author', '$news_title', '$news_slug', '$news_category', '$news_description', now(), '$full_image_path')";
          $query = mysqli_query($conn, $sql);

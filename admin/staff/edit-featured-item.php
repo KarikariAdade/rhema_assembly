@@ -1,17 +1,17 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$errorMsg = '';
-$id = $_SESSION['id'];
-if (!isset($_GET['item'])) {
-     echo "<script>window.location = 'featured-pictures.php';</script>";
-   }
-$item = $_GET['item'];
-$fetch_items = $conn->query("SELECT * FROM featured WHERE id = '$item'") or die(mysqli_error($conn));
-if (mysqli_num_rows($fetch_items) < 1) {
-     echo "<script>window.location = 'featured-pictures.php';</script>";
-   }
-?>
+      <?php
+      session_start();
+      include 'includes/connect.php';
+      $errorMsg = '';
+      $id = $_SESSION['id'];
+      if (!isset($_GET['item'])) {
+            echo "<script>window.location = 'featured-pictures.php';</script>";
+      }
+      $item = $_GET['item'];
+      $fetch_items = $conn->query("SELECT * FROM featured WHERE id = '$item'") or die(mysqli_error($conn));
+      if (mysqli_num_rows($fetch_items) < 1) {
+            echo "<script>window.location = 'featured-pictures.php';</script>";
+      }
+      ?>
       <?php if (!isset($_SESSION['id'])):?>
       	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
       <?php else:?>
@@ -82,7 +82,7 @@ if (mysqli_num_rows($fetch_items) < 1) {
                                     $row = mysqli_fetch_assoc($fetch_items);
                                     if (!empty($row['featured_image'])) {
                                          $featured_image = explode('/', $row['featured_image']);
-                                    $featured_image = '../'.$featured_image[2].'/'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5];
+                                    $featured_image = '../'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5].'/'.$featured_image[6];
                                     }
                                     ?>
                                     <input type="hidden" name="feature_id" id="feature_id" value="<?= $row['id']; ?>">
@@ -125,7 +125,7 @@ if (mysqli_num_rows($fetch_items) < 1) {
                         var path = '<?= $row["featured_image"]; ?>';
                         swal({
                           title: "Are you sure?",
-                          text: "You will not be able to recover this image!",
+                          text: "Your will not be able to recover this image!",
                           type: "warning",
                           showCancelButton: true,
                           confirmButtonClass: "btn-danger",

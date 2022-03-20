@@ -1,9 +1,9 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$errorMsg = '';
-$id = $_SESSION['id'];
-?>
+      <?php
+      session_start();
+      include 'includes/connect.php';
+      $errorMsg = '';
+      $id = $_SESSION['id'];
+      ?>
       <?php if (!isset($_SESSION['id'])):?>
       	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
       <?php else:?>
@@ -168,7 +168,7 @@ $id = $_SESSION['id'];
          function delete_featured_item(id){
             swal({
                 title: "Are you sure?",
-                text: "You will not be able to recover this image!",
+                text: "Your will not be able to recover this image!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",

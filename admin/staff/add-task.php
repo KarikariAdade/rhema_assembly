@@ -1,10 +1,10 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/news-counter.php';
-include 'includes/task_function.php';
-$id = $_SESSION['id'];
-?>
+ <?php
+ include 'includes/connect.php';
+ include 'includes/news-counter.php';
+ include 'includes/task_function.php';
+ session_start();
+ $id = $_SESSION['id'];
+ ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
  	<?php else:?>

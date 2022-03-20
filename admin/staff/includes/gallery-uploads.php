@@ -9,7 +9,7 @@ if (isset($_FILES['file']['name'][0])) {
 			$file_name = $_FILES['file']['name'];
 			$url = $_SERVER['HTTP_REFERER'];
 			$seg = explode("/", $url);
-			$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+			$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
 			$full_image_path = $path."/"."assets/uploads/gallery/".$values;
 			$sql = "INSERT INTO gallery(category, picture, date_uploaded) VALUES ('Committee Pictures', '$full_image_path', now())";
 			$query = mysqli_query($conn, $sql);

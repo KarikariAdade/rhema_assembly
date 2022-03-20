@@ -1,6 +1,6 @@
 <?php
-session_start();
 include 'includes/connect.php';
+session_start();
 // $errorMsg = '';
 $id = $_SESSION['id'];
 $sql = "SELECT * FROM admin_profile WHERE id='$id'";
@@ -70,7 +70,7 @@ if (mysqli_num_rows($query) > 0) {
                     	if (move_uploaded_file($file_tmp_name, $target_file)) {
                     		$image_url = $_SERVER['HTTP_REFERER'];
                     		$seg = explode("/", $image_url);
-                    		$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+                    		$path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
                     		$full_image_path = $path."/"."assets/uploads/profile/".$file_name;
                     		// print_r($seg);
                     		// $errorMsg = $full_image_path;

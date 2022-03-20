@@ -1,10 +1,10 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$id = $_SESSION['id'];
-$request_error ='';
+       <?php
+  include 'includes/connect.php';
+  session_start();
+  $id = $_SESSION['id'];
+  $request_error ='';
   ?>
-  <?php if(!isset($_SESSION['id'])):?>
+  <?php if (!isset($_SESSION['id'])):?>
     <?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
     <?php else:?>
     <!DOCTYPE html>

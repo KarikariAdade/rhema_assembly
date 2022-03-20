@@ -7,7 +7,7 @@
     if (mysqli_num_rows($fetch_featured) > 0) {
       while ($row = mysqli_fetch_assoc($fetch_featured)) {
         $featured_image = explode('/', $row['featured_image']);
-      $featured_image = $featured_image[1].'/'.$featured_image[2].'/'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5];
+      $featured_image = '../'.$featured_image[1].'/'.$featured_image[2].'/'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5];
     ?>
     <div class="pogoSlider-slide" data-transition="blocksReveal" data-duration="1000"  style="background-image:url(<?= $featured_image; ?>); width: 100%;background-position: top;background-size: contain;">
       <div class="slider_element">

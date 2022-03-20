@@ -25,7 +25,7 @@
 				cache: false,
 				processData: false,
 				success:function(data){
-					swal("Thank You", "You successfully uploaded your picture(s)"+data, "success");
+					swal("Thank You", "You successfully uploaded your picture(s)", "success");
 				}
 			});
 		});
@@ -56,7 +56,7 @@
 				cache: false,
 				processData: false,
 				success:function(data){
-					swal("Thank You", "You successfully uploaded your picture(s)"+data, "success");
+					swal("Thank You", "You successfully uploaded your picture(s)", "success");
 				}
 			});
 		});
@@ -87,7 +87,7 @@ $(document).ready(function (){
 				cache: false,
 				processData: false,
 				success:function(data){
-					swal("Thank You", "You successfully uploaded your picture(s)"+data, "success");
+					swal("Thank You", "You successfully uploaded your picture(s)", "success");
 				}
 			});
 		});
@@ -118,7 +118,7 @@ $(document).ready(function (){
 				cache: false,
 				processData: false,
 				success:function(data){
-					swal("Thank You", "You successfully uploaded your picture(s)"+data, "success");
+					swal("Thank You", "You successfully uploaded your picture(s)", "success");
 				}
 			});
 		});

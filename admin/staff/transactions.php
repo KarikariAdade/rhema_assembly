@@ -87,7 +87,7 @@ $id = $_SESSION['id'];
 						<li class=""><a href="#donations" data-toggle="tab" aria-expanded="true">Donations</a></li>
 						<li class=""><a href="#offering" data-toggle="tab" aria-expanded="true">Offering</a></li>
 						<li class=""><a href="#welfare" data-toggle="tab" aria-expanded="true">Welfare</a></li>
-						
+						<li class=""><a href="#statistics" data-toggle="tab" aria-expanded="true">Statistics</a></li>
 					</ul>
 					<div class="tab-content">
 						<?php include 'includes/transaction-tabs.php';?>

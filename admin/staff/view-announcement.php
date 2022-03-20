@@ -1,7 +1,7 @@
 <?php
-session_start();
 include 'includes/connect.php';
 include 'includes/announcement-counter.php';
+session_start();
 ?>
 <?php if (!isset($_SESSION['id'])):?>
     <?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>

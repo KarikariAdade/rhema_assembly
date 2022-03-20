@@ -1,9 +1,9 @@
-<?php
-include 'includes/connect.php';
-session_start();
-$id = $_SESSION['id'];
-$errorMsg ='';
-?>
+ <?php
+ include 'includes/connect.php';
+ session_start();
+ $id = $_SESSION['id'];
+ $errorMsg ='';
+ ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
  	<?php else:?>
@@ -26,8 +26,6 @@ $errorMsg ='';
  			<!-- Theme style -->
  			<link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
  			<link rel="stylesheet" type="text/css" href="../assets/js/summernote/dist/summernote.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-  	folder instead of downloading all of them to reduce the load. -->
   	<link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   	<link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
     <link rel="stylesheet" href="../assets/js/datatable/dataTables.bootstrap4.min.css">
@@ -120,7 +118,6 @@ $errorMsg ='';
 
 
     </div>
-  </body>
   <!-- ./wrapper -->
 
   <!-- jQuery 3 -->
@@ -150,7 +147,7 @@ $errorMsg ='';
 <script src="../assets/js/datatable/buttons/buttons.flash.min.js"></script>
 <script src="../assets/js/datatable/buttons/buttons.html5.min.js"></script>
 <script src="../assets/js/datatable/buttons/buttons.print.min.js"></script>
-
 <script src="../assets/js/datatable/buttons/jquery-datatable.js"></script>
+</body>
   </html>
   <?php endif;?>

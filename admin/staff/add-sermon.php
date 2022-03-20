@@ -1,8 +1,8 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/sermon_counter.php';
-$id = $_SESSION['id'];
+ <?php
+ include 'includes/connect.php';
+ include 'includes/sermon_counter.php';
+ session_start();
+ $id = $_SESSION['id'];
  $errorMsg ='';
  function slug($text){
   $text = str_replace(' ', '-', $text);
@@ -58,8 +58,8 @@ $id = $_SESSION['id'];
     }elseif ($sermon_file_size > 5000000) {
       $errorMsg = "Sermon File should not be more than 5mb";
       $sermon_uploadOk = 0;
-    }elseif ($sermon_FileType != "pdf" && $sermon_FileType != "docx" && $sermon_FileType != 'doc') {
-      $errorMsg = "Only pdf and .docx documents are allowed";
+    }elseif ($sermon_FileType != "mp3" && $sermon_FileType != "aac" && $sermon_FileType != 'doc' && $sermon_FileType != 'docx' && $sermon_FileType != 'pdf' && $sermon_FileType != 'm4a') {
+      $errorMsg = "Only pdf and .docx documents or audio files are allowed";
       $sermon_uploadOk = 0;
     }elseif ($sermon_uploadOk == 0) {
       $errorMsg = "Sermon File could not be uploaded";
@@ -67,18 +67,20 @@ $id = $_SESSION['id'];
       if (move_uploaded_file($file_tmp_name, $target_file) && move_uploaded_file($sermon_file_tmp_name, $sermon_target_file)) {
         $image_url = $_SERVER['HTTP_REFERER'];
         $seg = explode("/", $image_url);
-        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
-        
+        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
         $full_image_path = $path."/"."assets/uploads/sermon/".$file_name;
-        echo $full_image_path;
+
         $sermon_file_url = $_SERVER['HTTP_REFERER'];
         $sermon_seg = explode("/", $sermon_file_url);
-        $sermon_path = $sermon_seg[0]."/".$sermon_seg[1]."/".$sermon_seg[2]."/".$sermon_seg[3];
+        $sermon_path = $sermon_seg[0]."/".$sermon_seg[1]."/".$sermon_seg[2]."/".$sermon_seg[3]."/".$seg[4];
+        $errorMsg = $sermon_path;
         $sermon_full_image_path = $sermon_path."/"."assets/uploads/sermon_file/".$sermon_file_name;
+        $errorMsg = $sermon_full_image_path;
         $sql = "INSERT INTO sermon (publisher_id, title, sermon_slug, author, bible_verses, sermon_link, sermon_notes, date, service_type, sermon_image, sermon_file) VALUES('$id', '$sermon_title', '$sermon_slug', '$preacher', '$bible_verse','$sermon_link', '$sermon_description', now(), '$sermon_category','$full_image_path','$sermon_full_image_path')";
         $query = mysqli_query($conn, $sql);
         if ($query) {
-                    $errorMsg = "Sermon successfully uploaded";
+                    			// echo "<script>window.location = 'view-sermon.php';<script>";
+         header("Location:view-sermons.php");
        }else{
          $errorMsg = "Sermon could not be uploaded".mysqli_error($conn);
        }
@@ -117,12 +119,6 @@ $id = $_SESSION['id'];
 
   	<!-- Google Font -->
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-        <script type="text/javascript">
-        var errorMsg = "<?= $errorMsg;?>";
-        if(errorMsg == "Sermon successfully uploaded"){
-        window.location = 'view-sermons.php';
-        }
-        </script>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
   	<div class="wrapper">

@@ -1,8 +1,8 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/announcement-counter.php';
-$id = $_SESSION['id'];
+ <?php
+ session_start();
+ include 'includes/connect.php';
+ include 'includes/announcement-counter.php';
+ $id = $_SESSION['id'];
 
  // Announcement slug
  function slug($text){
@@ -57,7 +57,7 @@ $errorMsg ='';
         if (move_uploaded_file($file_tmp_name, $target_file)) {
           $image_url = $_SERVER['HTTP_REFERER'];
           $seg = explode("/", $image_url);
-          $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+          $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
           $full_image_path = $path."/"."assets/uploads/announcement/".$file_name;
           $sql = "INSERT INTO announcement (publisher_id, publisher_name, announcement_slug, announcement_title, category, description, date, image) VALUES ('$publisher_id', '$publisher_name', '$announcement_slug', '$announcement_title', '$announcement_category', '$announcement_description', now(), '$full_image_path')";
           $query = mysqli_query($conn, $sql);

@@ -1,11 +1,10 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/news-counter.php';
-include 'includes/delete-news.php';
-$id = $_SESSION['id'];
-$errorMsg ='';
-?>
+ <?php
+ include 'includes/connect.php';
+ include 'includes/news-counter.php';
+ session_start();
+ $id = $_SESSION['id'];
+ $errorMsg ='';
+ ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
  	<?php else:?>
@@ -114,7 +113,7 @@ if (mysqli_num_rows($query) > 0) {
                                         <?php if($position == "Presiding Elder" || $position == "Elder" || $position == "Secretary"): ?>
                                       <p><button class="btn btn-sm"><a href="update-news.php?news=<?php echo urlencode($news_slug); ?>"><span class="fa fa-redo"></span></a></button></p>
                                       
-                                        <form method="POST" action="">
+                                        <form method="POST" action="includes/delete-news.php">
                                           <input type="hidden" name="news_image" value="<?php echo $news_image; ?>">
                                           <input type="hidden" name="news_id" value="<?php echo $id; ?>">
                                        <p> <button class="btn btn-sm" name="delete_news_btn" onclick="return confirm('Are you sure you want to delete this post?. Deleted posts cannot be recovered')"><span class="fa fa-trash"></span></button></p>

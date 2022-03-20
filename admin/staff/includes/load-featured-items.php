@@ -15,9 +15,9 @@ if (isset($_POST['id'])) {
 			}
 			if (!empty($row['featured_image'])) {
 				$featured_image = explode('/', $row['featured_image']);
-			$featured_image = '../'.$featured_image[2].'/'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5];
+			$featured_image = '../'.$featured_image[3].'/'.$featured_image[4].'/'.$featured_image[5].'/'.$featured_image[6];
 			$output .='<div class="col-md-6">
-			<img class="file_drag_area_img" src="'.$featured_image.'">
+			<img class="file_drag_area_img1" src="'.$featured_image.'">
 			</div>';
 			}
 			$output .='

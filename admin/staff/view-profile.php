@@ -1,6 +1,6 @@
 <?php
-session_start();
 include 'includes/connect.php';
+session_start();
 $id = $_SESSION['id'];
 $errorMsg ='';
 ?>
@@ -125,8 +125,9 @@ $errorMsg ='';
                       if (move_uploaded_file($file_tmp_name, $target_file)) {
                         $image_url = $_SERVER['HTTP_REFERER'];
                         $seg = explode("/", $image_url);
-                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
                         $full_image_path = $path."/"."assets/uploads/profile/".$file_name;
+                        // print_r($seg);
                         $errorMsg = $full_image_path;
                         $sql = "UPDATE admin_profile SET
                          admin_image = '$full_image_path' WHERE id = '$id'
@@ -352,7 +353,6 @@ $errorMsg ='';
               <?php
               if ($gallery_counter > 0) {
                 while ($row = mysqli_fetch_assoc($gallery_query)) {
-                $picture_id = $row['id'];
                   $user_id = $row['user_id'];
                   $user_name = $row['user_name'];
                   $user_email= $row['user_email'];
@@ -362,9 +362,8 @@ $errorMsg ='';
               <div class="col-md-4">
                 <div class="profile_gallery">
                   <div class="profile_gallery_form">
-                  <form method="POST" action="" enctype="multipart/form-date">
+                  <form method="POST" action="view-profile.php" enctype="multipart/form-date">
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                    <input type="hidden" name="picture_id" value="<?= $picture_id;?>">
                     <input type="hidden" name="picture" value="<?php echo $picture; ?>">
                     <button type="submit" class="btn btn-danger btn-sm" id="profile_gallery_remove" name="remove_profile_picture" onclick="return confirm('Are you sure you want to delete this Picture?')">Delete</button>
                   </form>
@@ -392,11 +391,13 @@ $errorMsg ='';
 if (isset($_POST['remove_profile_picture'])) {
   $user_id = $_POST['user_id'];
   $picture = $_POST['picture'];
-  $picture_id = $_POST['picture_id'];
+
   $seg = explode("/", $picture);
-  $img = $seg[7];
-  $sql = "DELETE FROM profile_pictures WHERE id = '$picture_id'";
-  $query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+  // print_r($seg);
+  $img = $seg[8];
+  // echo $img;
+  $sql = "DELETE FROM profile_pictures WHERE user_id='$user_id'";
+  $query = mysqli_query($conn, $sql);
   $unlink = unlink("../assets/uploads/profile/".$img);
   if ($query) {
        $errorMsg = "Picture successfully deleted from folder";

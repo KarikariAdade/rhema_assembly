@@ -19,7 +19,7 @@ if (isset($_POST['add_theme_btn'])) {
 			if (isset($file_name)) {
 				$file_tmp_name = $_FILES['theme_picture']['tmp_name'];
 				$file_type = array('jpg','png','jpeg');
-				$target_dir = $_SERVER['DOCUMENT_ROOT'].'/admin/assets/uploads/theme/'.$file_name;
+				$target_dir = $_SERVER['DOCUMENT_ROOT'].'/rhema_assembly/admin/assets/uploads/theme/'.$file_name;
 				$file_extension = explode('.', $file_name);
 				$file_extension = $file_extension[1];
 				if (!in_array($file_extension, $file_type)) {

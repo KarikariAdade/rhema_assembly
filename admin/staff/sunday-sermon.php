@@ -1,7 +1,7 @@
 <?php
-session_start();
 include 'includes/connect.php';
 include 'includes/sermon_counter.php';
+session_start();
   $current_sql = "SELECT * FROM sermon WHERE service_type = 'Sunday Service' ORDER BY id DESC LIMIT 1";
     $current_query = mysqli_query($conn, $current_sql);
 ?>

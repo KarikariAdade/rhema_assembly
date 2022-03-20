@@ -1,7 +1,7 @@
-<?php
-session_start();
-include 'includes/connect.php';
-$id = $_SESSION['id'];
+ <?php
+ include 'includes/connect.php';
+ session_start();
+ $id = $_SESSION['id'];
  ?>
  <?php if (!isset($_SESSION['id'])):?>
  	<?php  echo "<script>window.location = 'sign-in.php';</script>"; ?>
@@ -54,7 +54,7 @@ if (isset($_POST['add_event_btn'])) {
                       if (move_uploaded_file($file_tmp_name, $target_file)) {
                         $image_url = $_SERVER['HTTP_REFERER'];
                         $seg = explode("/", $image_url);
-                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3];
+                        $path = $seg[0]."/".$seg[1]."/".$seg[2]."/".$seg[3]."/".$seg[4];
                         $full_image_path = $path."/"."assets/uploads/event/".$file_name;
                         $sql = "INSERT INTO events(activity, activity_slug, start_date, start_time, end_date, event_category, event_desc, event_picture, venue, remarks) VALUES ('$activity', '$activity_slug', '$start_date', '$start_time', '$end_date', '$event_category', '$event_desc', '$full_image_path', '$venue', '$remarks')";
                         $query = mysqli_query($conn, $sql);

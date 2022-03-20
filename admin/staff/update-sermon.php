@@ -1,10 +1,9 @@
-<?php
-session_start();
-include 'includes/connect.php';
-include 'includes/sermon_counter.php';
-include 'includes/update-sermon.php';
-$id = $_SESSION['id'];
-$errorMsg ='';
+ <?php
+ include 'includes/connect.php';
+ include 'includes/sermon_counter.php';
+ session_start();
+ $id = $_SESSION['id'];
+ $errorMsg ='';
 $sermon_slug = $_GET['sermon'];
 
  $sql = "SELECT * FROM sermon WHERE sermon_slug = '$sermon_slug'";
@@ -186,7 +185,7 @@ $sermon_slug = $_GET['sermon'];
 
   						<div class="col-md-9">
                 <h3 align="center" style="padding-bottom: 2%;">SERMON UPDATE</h3>
-  							<form class="row" method="POST" action="" enctype="multipart/form-data">
+  							<form class="row" method="POST" action="includes/update-sermon.php" enctype="multipart/form-data">
   								<?php if(isset($_POST['sermon_submit_btn'])): ?>
   									<p id="formError" style="margin-top: -40px !important;"><?php echo $errorMsg; ?></p>
   									<?php endif?><br>
